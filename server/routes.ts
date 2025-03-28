@@ -365,12 +365,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const performanceScore = 7;
         
         // Overall score calculation (weighted average)
+        // Calculate percentage for each category, then apply weights
+        const essentialPercent = (essentialScore / 10) * 100;
+        const socialPercent = (socialScore / 10) * 100;
+        const structurePercent = (structureScore / 10) * 100;
+        const performancePercent = (performanceScore / 10) * 100;
+        
+        // Apply weights to each percentage (total weight = 1)
         const overall = Math.round(
-          (essentialScore / 10) * 0.35 + 
-          (socialScore / 10) * 0.25 + 
-          (structureScore / 10) * 0.2 + 
-          (performanceScore / 10) * 0.2
-        ) * 100;
+          (essentialPercent * 0.35) + 
+          (socialPercent * 0.25) + 
+          (structurePercent * 0.2) + 
+          (performancePercent * 0.2)
+        );
         
         return {
           overall,

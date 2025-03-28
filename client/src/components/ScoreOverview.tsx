@@ -19,14 +19,17 @@ export default function ScoreOverview({ result, onReanalyze }: ScoreOverviewProp
   const getCircleParameters = (score: number) => {
     const radius = 16;
     const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (score / 100) * circumference;
+    
+    // Ensure the score is between 0 and 100 for proper calculation
+    const normalizedScore = Math.min(100, Math.max(0, score));
+    const offset = circumference - (normalizedScore / 100) * circumference;
     
     // Determine stroke color
-    let strokeColor = "#10B981"; // success/green
-    if (score < 80 && score >= 60) {
-      strokeColor = "#F59E0B"; // warning/yellow
-    } else if (score < 60) {
-      strokeColor = "#EF4444"; // error/red
+    let strokeColor = "#10B981"; // success/green (>= 80)
+    if (normalizedScore < 80 && normalizedScore >= 60) {
+      strokeColor = "#F59E0B"; // warning/yellow (60-79)
+    } else if (normalizedScore < 60) {
+      strokeColor = "#EF4444"; // error/red (<60)
     }
     
     return {

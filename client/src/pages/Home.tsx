@@ -6,6 +6,8 @@ import ScoreOverview from "@/components/ScoreOverview";
 import SearchPreview from "@/components/SearchPreview";
 import SocialPreview from "@/components/SocialPreview";
 import MetaTagsTable from "@/components/MetaTagsTable";
+import MetaTagsInsight from "@/components/MetaTagsInsight";
+import CategorySummary from "@/components/CategorySummary";
 import Recommendations from "@/components/Recommendations";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -80,14 +82,22 @@ export default function Home() {
             {/* Score Overview */}
             <ScoreOverview result={analysisResult} onReanalyze={handleReanalyze} />
 
+            {/* Category Summary - New visual component */}
+            <CategorySummary result={analysisResult} />
+
             {/* Search Preview and Social Preview */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               <SearchPreview result={analysisResult} />
               <SocialPreview result={analysisResult} />
             </div>
 
+            {/* Meta Tags Insight - New visual component */}
+            <MetaTagsInsight metaTags={analysisResult.metaTags} />
+
             {/* Meta Tags Analysis */}
-            <MetaTagsTable metaTags={analysisResult.metaTags} />
+            <div id="meta-tags-table">
+              <MetaTagsTable metaTags={analysisResult.metaTags} />
+            </div>
 
             {/* Recommendations */}
             <Recommendations recommendations={analysisResult.recommendations} />

@@ -42,10 +42,10 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
   };
 
   return (
-    <section className="mb-8">
+    <section className="mb-6 sm:mb-8">
       <Card className="shadow-md border border-slate-200">
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
+        <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6">
+          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 sm:gap-3">
             <div className="flex-grow">
               <label htmlFor="url-input" className="block text-sm font-medium text-slate-700 mb-1">
                 Website URL
@@ -57,7 +57,7 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                 <Input
                   type="text"
                   id="url-input"
-                  className={`pl-10 py-6 ${error ? 'border-red-500' : ''}`}
+                  className={`pl-10 py-5 sm:py-6 ${error ? 'border-red-500' : ''} text-sm sm:text-base`}
                   placeholder="https://example.com"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
@@ -65,13 +65,13 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                 />
               </div>
               {error && (
-                <p className="mt-1 text-sm text-red-500">{error}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{error}</p>
               )}
             </div>
             <div className="flex items-end">
               <Button 
                 type="submit" 
-                className="bg-primary hover:bg-blue-600 text-white font-medium py-6 w-full md:w-auto"
+                className="bg-primary hover:bg-blue-600 text-white font-medium py-5 sm:py-6 w-full md:w-auto text-sm sm:text-base"
                 disabled={isPending}
               >
                 <i className="fas fa-search mr-2"></i>
@@ -81,13 +81,14 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
           </form>
           
           {/* Examples section */}
-          <div className="mt-4">
+          <div className="mt-3 sm:mt-4">
             <p className="text-xs text-slate-500">Try these examples:</p>
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-1 sm:mt-2">
               <button 
                 className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded transition-colors" 
                 onClick={() => handleExampleClick("https://example.com")}
                 disabled={isPending}
+                type="button"
               >
                 example.com
               </button>
@@ -95,6 +96,7 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                 className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded transition-colors" 
                 onClick={() => handleExampleClick("https://twitter.com")}
                 disabled={isPending}
+                type="button"
               >
                 twitter.com
               </button>
@@ -102,8 +104,17 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                 className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded transition-colors" 
                 onClick={() => handleExampleClick("https://github.com")}
                 disabled={isPending}
+                type="button"
               >
                 github.com
+              </button>
+              <button 
+                className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded transition-colors" 
+                onClick={() => handleExampleClick("https://shopify.com")}
+                disabled={isPending}
+                type="button"
+              >
+                shopify.com
               </button>
             </div>
           </div>

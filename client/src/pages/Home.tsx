@@ -46,20 +46,20 @@ export default function Home() {
 
   return (
     <div className="bg-slate-50 text-slate-800 font-sans min-h-screen">
-      <div className="max-w-7xl mx-auto p-4 md:p-6">
+      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
         {/* Header */}
-        <header className="mb-8">
+        <header className="mb-6 sm:mb-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-                <i className="fas fa-search text-primary mr-3"></i>
+            <div className="mb-4 md:mb-0 text-center md:text-left">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 flex items-center justify-center md:justify-start">
+                <i className="fas fa-search text-primary mr-2 sm:mr-3"></i>
                 <span>Meta Tag Inspector</span>
               </h1>
-              <p className="text-slate-600 mt-1">Analyze and optimize your website's SEO meta tags</p>
+              <p className="text-slate-600 mt-1 text-sm sm:text-base">Analyze and optimize your website's SEO meta tags</p>
             </div>
             
             <div className="flex items-center">
-              <a href="https://github.com/yourusername/meta-tag-inspector" target="_blank" rel="noopener noreferrer" className="bg-primary text-white rounded-lg px-4 py-2 shadow-sm hover:bg-blue-600 transition-colors">
+              <a href="https://github.com/yourusername/meta-tag-inspector" target="_blank" rel="noopener noreferrer" className="bg-primary text-white rounded-lg px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base shadow-sm hover:bg-blue-600 transition-colors">
                 <i className="fas fa-book mr-1"></i>
                 Documentation
               </a>
@@ -81,7 +81,7 @@ export default function Home() {
             <ScoreOverview result={analysisResult} onReanalyze={handleReanalyze} />
 
             {/* Search Preview and Social Preview */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               <SearchPreview result={analysisResult} />
               <SocialPreview result={analysisResult} />
             </div>
@@ -93,7 +93,7 @@ export default function Home() {
             <Recommendations recommendations={analysisResult.recommendations} />
 
             {/* Footer */}
-            <footer className="text-center py-6 text-slate-500 text-sm">
+            <footer className="text-center py-4 sm:py-6 text-slate-500 text-xs sm:text-sm">
               <p>Meta Tag Inspector &copy; {new Date().getFullYear()} - An SEO Analysis Tool</p>
             </footer>
           </div>

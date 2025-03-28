@@ -275,29 +275,94 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Calculate scores
-      // Score calculation logic (simplified)
+      // More accurate score calculation logic
       const calculateScore = () => {
         let essentialScore = 0;
         let socialScore = 0;
         let structureScore = 0;
         
-        // Essential tags scoring
-        if (title) essentialScore += 3;
-        if (description) essentialScore += 3;
-        if (canonical) essentialScore += 2;
-        if (robots) essentialScore += 2;
+        // Essential tags scoring (max 10 points)
+        // Title tag analysis (up to 3 points)
+        if (title) {
+          if (title.length >= 30 && title.length <= 60) {
+            essentialScore += 3; // Perfect length
+          } else if (title.length > 0) {
+            essentialScore += 1.5; // Present but not optimal length
+          }
+        }
         
-        // Social tags scoring
-        if (ogTitle) socialScore += 2;
-        if (ogDescription) socialScore += 2;
-        if (ogImage) socialScore += 3;
-        if (twitterCard) socialScore += 3;
+        // Description analysis (up to 3 points)
+        if (description) {
+          if (description.length >= 120 && description.length <= 155) {
+            essentialScore += 3; // Perfect length
+          } else if (description.length > 0) {
+            essentialScore += 1.5; // Present but not optimal length
+          }
+        }
         
-        // Structure scoring - simplified, normally would analyze headers, etc.
-        structureScore = 8; // Default good score, would require more analysis
+        // Canonical URL (up to 2 points)
+        if (canonical) {
+          if (canonical.startsWith('http')) {
+            essentialScore += 2;
+          } else {
+            essentialScore += 1; // Present but possibly malformed
+          }
+        }
         
-        // Performance scoring - simplified
-        const performanceScore = 7; // Would require more analysis
+        // Robots tag (up to 2 points)
+        if (robots) {
+          if (!robots.includes('noindex')) {
+            essentialScore += 2;
+          } else {
+            essentialScore += 0.5; // Present but with noindex
+          }
+        }
+        
+        // Social tags scoring (max 10 points)
+        // OG Title (up to 2 points)
+        if (ogTitle) {
+          socialScore += 2;
+        } else if (title) {
+          socialScore += 0.5; // At least there's a regular title as fallback
+        }
+        
+        // OG Description (up to 2 points)
+        if (ogDescription) {
+          socialScore += 2;
+        } else if (description) {
+          socialScore += 0.5; // At least there's a regular description as fallback
+        }
+        
+        // OG Image (up to 3 points)
+        if (ogImage) {
+          if (ogImage.startsWith('http')) {
+            socialScore += 3;
+          } else {
+            socialScore += 1.5; // Present but possibly malformed
+          }
+        }
+        
+        // Twitter Card (up to 3 points)
+        if (twitterCard) {
+          if (twitterCard === 'summary_large_image') {
+            socialScore += 3; // Optimal card type
+          } else {
+            socialScore += 2; // Present but not optimal type
+          }
+        }
+        
+        // Structure scoring (would normally analyze headings, content structure, etc.)
+        // For this simplified version, we'll base it partly on tag presence
+        structureScore = 6; // Base score
+        
+        // Add points for having the essential tags (indicates better structure)
+        if (title && description) {
+          structureScore += 2;
+        }
+        
+        // Performance scoring (simplified)
+        // In a real implementation, this would check page size, image optimization, etc.
+        const performanceScore = 7;
         
         // Overall score calculation (weighted average)
         const overall = Math.round(

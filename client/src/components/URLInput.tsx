@@ -21,11 +21,8 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
       return;
     }
 
-    // Add protocol if missing
-    let formattedUrl = url.trim();
-    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
-      formattedUrl = "https://" + formattedUrl;
-    }
+    // Always use https://
+    let formattedUrl = "https://" + url.trim().replace(/^https?:\/\//, '');
 
     if (!isValidUrl(formattedUrl)) {
       setError("Please enter a valid URL");
@@ -54,15 +51,20 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <i className="fas fa-globe text-slate-400"></i>
                 </div>
-                <Input
-                  type="text"
-                  id="url-input"
-                  className={`pl-10 py-5 sm:py-6 ${error ? 'border-red-500' : ''} text-sm sm:text-base`}
-                  placeholder="https://example.com"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  disabled={isPending}
-                />
+                <div className="flex rounded-md">
+                  <span className="inline-flex items-center pl-10 pr-1 py-5 sm:py-6 text-slate-500 text-sm sm:text-base bg-white border border-r-0 border-input rounded-l-md">
+                    https://
+                  </span>
+                  <Input
+                    type="text"
+                    id="url-input"
+                    className={`rounded-l-none py-5 sm:py-6 ${error ? 'border-red-500' : ''} text-sm sm:text-base`}
+                    placeholder="example.com"
+                    value={url.replace(/^https?:\/\//, '')}
+                    onChange={(e) => setUrl(e.target.value)}
+                    disabled={isPending}
+                  />
+                </div>
               </div>
               {error && (
                 <p className="mt-1 text-xs sm:text-sm text-red-500">{error}</p>

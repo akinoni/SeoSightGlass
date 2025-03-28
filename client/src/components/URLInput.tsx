@@ -52,13 +52,13 @@ export default function URLInput({ onAnalyze, isPending }: URLInputProps) {
                   <i className="fas fa-globe text-slate-400"></i>
                 </div>
                 <div className="flex rounded-md">
-                  <span className="inline-flex items-center pl-10 pr-1 py-5 sm:py-6 text-slate-500 text-sm sm:text-base bg-white border border-r-0 border-input rounded-l-md">
+                  <span className="inline-flex items-center pl-10 pr-1 text-slate-500 text-sm sm:text-base bg-white border border-r-0 border-input rounded-l-md h-[42px] sm:h-[50px]">
                     https://
                   </span>
                   <Input
                     type="text"
                     id="url-input"
-                    className={`rounded-l-none py-5 sm:py-6 ${error ? 'border-red-500' : ''} text-sm sm:text-base`}
+                    className={`rounded-l-none h-[42px] sm:h-[50px] ${error ? 'border-red-500' : ''} text-sm sm:text-base`}
                     placeholder="example.com"
                     value={url.replace(/^https?:\/\//, '')}
                     onChange={(e) => setUrl(e.target.value)}
